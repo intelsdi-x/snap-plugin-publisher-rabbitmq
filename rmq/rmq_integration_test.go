@@ -5,8 +5,6 @@ package rmq
 
 import (
 	"encoding/json"
-	"log"
-	"os"
 	"testing"
 	"time"
 
@@ -18,44 +16,54 @@ import (
 )
 
 // integration test
-func TestPublish(t *testing.T) {
-	Convey("Publish data in RabbitMQ", t, func() {
-		mt := plugin.PluginMetricType{
-			Namespace_:          []string{"foo", "bar"},
-			LastAdvertisedTime_: time.Now(),
-			Version_:            1,
-			Data_:               1,
-		}
-		data, _, err := plugin.MarshallPluginMetricTypes(plugin.PulseGOBContentType, []plugin.PluginMetricType{mt})
-		So(err, ShouldBeNil)
-		rmqPub := NewRmqPublisher()
-		config := map[string]ctypes.ConfigValue{
-			"address":       ctypes.ConfigValueStr{Value: "127.0.0.1:5672"},
-			"exchange_name": ctypes.ConfigValueStr{Value: "pulse"},
-			"routing_key":   ctypes.ConfigValueStr{Value: "metrics"},
-			"exchange_type": ctypes.ConfigValueStr{Value: "fanout"},
-		}
-		logger := log.New(os.Stdout, "", log.LstdFlags)
-		err = rmqPub.Publish(plugin.PulseGOBContentType, data, config, logger)
-		So(err, ShouldBeNil)
-		Convey("We can receive posted message", func() {
-			cKill := make(chan struct{})
-			cMetrics, err := connectToAmqp(cKill)
+func TestRmqIntegration(t *testing.T) {
+	mt := plugin.PluginMetricType{
+		Namespace_:          []string{"foo", "bar"},
+		LastAdvertisedTime_: time.Now(),
+		Version_:            1,
+		Data_:               1,
+	}
+	data, _, err := plugin.MarshalPluginMetricTypes(plugin.PulseGOBContentType, []plugin.PluginMetricType{mt})
+	Convey("Metric should encode successfully", t, func() {
+		Convey("So err should be nil", func() {
 			So(err, ShouldBeNil)
-			timeout := time.After(time.Second * 2)
-			if err == nil {
-				select {
-				case metric := <-cMetrics:
-					var metrix []plugin.PluginMetricType
-					err := json.Unmarshal(metric, &metrix)
-					So(err, ShouldBeNil)
-					So(metrix[1].Version, ShouldEqual, 1)
-					cKill <- struct{}{}
-				case <-timeout:
-					t.Fatal("Timeout when waiting for AMQP message")
-				}
-			}
 		})
+	})
+	rmqPub := NewRmqPublisher()
+	config := map[string]ctypes.ConfigValue{
+		"address":       ctypes.ConfigValueStr{Value: "127.0.0.1:5672"},
+		"exchange_name": ctypes.ConfigValueStr{Value: "pulse"},
+		"routing_key":   ctypes.ConfigValueStr{Value: "metrics"},
+		"exchange_type": ctypes.ConfigValueStr{Value: "fanout"},
+	}
+	cKill := make(chan struct{})
+	cMetrics, errc := connectToAmqp(cKill)
+	err = rmqPub.Publish(plugin.PulseGOBContentType, data, config)
+	Convey("Publish should successfully publish metric to RabbitMQ server", t, func() {
+		Convey("Publish data to RabbitMQ should not error", func() {
+			So(err, ShouldBeNil)
+		})
+		Convey("We should be able to retrieve metric from RabbitMQ Server and validate", func() {
+			Convey("Connecting to RabbitMQ server should not error", func() {
+				So(errc, ShouldBeNil)
+			})
+			Convey("Validate metric", func() {
+				if err == nil {
+					select {
+					case metric := <-cMetrics:
+						var metrix []plugin.PluginMetricType
+						err := json.Unmarshal(metric, &metrix)
+						So(err, ShouldBeNil)
+						So(metrix[0].Version(), ShouldEqual, mt.Version_)
+						cKill <- struct{}{}
+					case <-time.After(time.Second * 10):
+						t.Fatal("Timeout when waiting for AMQP message")
+					}
+
+				}
+			})
+		})
+
 	})
 }
 
@@ -66,6 +74,20 @@ func connectToAmqp(cKill <-chan struct{}) (chan []byte, error) {
 	}
 
 	ch, err := conn.Channel()
+	if err != nil {
+		return nil, err
+	}
+
+	err = ch.ExchangeDeclare(
+		"pulse",  //name
+		"fanout", //kind
+		true,     //durable
+		false,
+		false,
+		false,
+		nil,
+	)
+
 	if err != nil {
 		return nil, err
 	}
@@ -118,14 +140,4 @@ func connectToAmqp(cKill <-chan struct{}) (chan []byte, error) {
 	}()
 	return cMetrics, nil
 
-}
-
-func TestPluginMeta(t *testing.T) {
-
-	Convey("Meta returns proper metadata", t, func() {
-		meta := Meta()
-		So(meta.Name, ShouldResemble, name)
-		So(meta.Version, ShouldResemble, version)
-		So(meta.Type, ShouldResemble, plugin.PublisherPluginType)
-	})
 }
