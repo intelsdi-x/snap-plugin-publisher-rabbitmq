@@ -28,7 +28,7 @@ func NewRmqPublisher() *rmqPublisher {
 
 const (
 	name       = "rabbitmq"
-	version    = 1
+	version    = 2
 	pluginType = plugin.PublisherPluginType
 )
 
