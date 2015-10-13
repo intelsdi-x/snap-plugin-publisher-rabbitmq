@@ -48,15 +48,18 @@ func TestRmqIntegration(t *testing.T) {
 		})
 	})
 	rmqPub := NewRmqPublisher()
+	cp, _ := rmqPub.GetConfigPolicy()
 	config := map[string]ctypes.ConfigValue{
 		"address":       ctypes.ConfigValueStr{Value: "127.0.0.1:5672"},
 		"exchange_name": ctypes.ConfigValueStr{Value: "pulse"},
 		"routing_key":   ctypes.ConfigValueStr{Value: "metrics"},
 		"exchange_type": ctypes.ConfigValueStr{Value: "fanout"},
 	}
+	cfg, _ := cp.Get([]string{""}).Process(config)
+
 	cKill := make(chan struct{})
 	cMetrics, errc := connectToAmqp(cKill)
-	err = rmqPub.Publish(plugin.PulseGOBContentType, data, config)
+	err = rmqPub.Publish(plugin.PulseGOBContentType, data, *cfg)
 	Convey("Publish should successfully publish metric to RabbitMQ server", t, func() {
 		Convey("Publish data to RabbitMQ should not error", func() {
 			So(err, ShouldBeNil)

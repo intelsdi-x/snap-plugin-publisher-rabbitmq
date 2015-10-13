@@ -46,13 +46,16 @@ func TestRabbitmqPlugin(t *testing.T) {
 		Convey("so rp should be of type rmqPublisher", func() {
 			So(rp, ShouldHaveSameTypeAs, &rmqPublisher{})
 		})
+		configPolicy, err := rp.GetConfigPolicy()
 		Convey("so rp.GetConfigPolicy should return a ConfigPolicy", func() {
-			configPolicy := rp.GetConfigPolicy()
 			Convey("so config policy should not be nil", func() {
 				So(configPolicy, ShouldNotBeNil)
 			})
+			Convey("so retreiving a config policy should not return an error", func() {
+				So(err, ShouldBeNil)
+			})
 			Convey("so config policy should be a cpolicy.ConfigPolicy", func() {
-				So(configPolicy, ShouldHaveSameTypeAs, cpolicy.ConfigPolicy{})
+				So(configPolicy, ShouldHaveSameTypeAs, &cpolicy.ConfigPolicy{})
 			})
 			testConfig := make(map[string]ctypes.ConfigValue)
 			testConfig["address"] = ctypes.ConfigValueStr{Value: "localhost:5672"}
