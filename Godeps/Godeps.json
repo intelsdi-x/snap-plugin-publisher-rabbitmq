@@ -7,12 +7,8 @@
 			"Rev": "6a378341a305bfbc252e8a6638f16cf443221997"
 		},
 		{
-			"ImportPath": "github.com/intelsdi-x/pulse/control/plugin",
-			"Rev": "517e0f92273918dc17735ee953ff1abb6adaa7af"
-		},
-		{
-			"ImportPath": "github.com/intelsdi-x/pulse/core/ctypes",
-			"Rev": "517e0f92273918dc17735ee953ff1abb6adaa7af"
+			"ImportPath": "github.com/intelsdi-x/pulse",
+			"Rev": "544d1d673afb6b7e6f2f07331da79fb4de143d7e"
 		},
 		{
 			"ImportPath": "github.com/smartystreets/assertions",

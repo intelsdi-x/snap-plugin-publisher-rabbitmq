@@ -47,7 +47,7 @@ func NewRmqPublisher() *rmqPublisher {
 
 const (
 	name       = "rabbitmq"
-	version    = 2
+	version    = 3
 	pluginType = plugin.PublisherPluginType
 )
 
@@ -76,7 +76,7 @@ func (rmq *rmqPublisher) Publish(contentType string, content []byte, config map[
 	return err
 }
 
-func (rmq *rmqPublisher) GetConfigPolicy() cpolicy.ConfigPolicy {
+func (rmq *rmqPublisher) GetConfigPolicy() (*cpolicy.ConfigPolicy, error) {
 	cp := cpolicy.New()
 	config := cpolicy.NewPolicyNode()
 
@@ -101,7 +101,7 @@ func (rmq *rmqPublisher) GetConfigPolicy() cpolicy.ConfigPolicy {
 	config.Add(r4)
 
 	cp.Add([]string{""}, config)
-	return *cp
+	return cp, nil
 }
 
 func publishDataToRmq(metrics []plugin.PluginMetricType, address string, exName string, rtKey string, exKind string, logger *log.Logger) error {
