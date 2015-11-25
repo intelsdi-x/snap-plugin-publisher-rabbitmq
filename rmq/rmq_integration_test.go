@@ -29,8 +29,8 @@ import (
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/streadway/amqp"
 
-	"github.com/intelsdi-x/pulse/control/plugin"
-	"github.com/intelsdi-x/pulse/core/ctypes"
+	"github.com/intelsdi-x/snap/control/plugin"
+	"github.com/intelsdi-x/snap/core/ctypes"
 )
 
 // integration test
@@ -41,7 +41,7 @@ func TestRmqIntegration(t *testing.T) {
 		Version_:            1,
 		Data_:               1,
 	}
-	data, _, err := plugin.MarshalPluginMetricTypes(plugin.PulseGOBContentType, []plugin.PluginMetricType{mt})
+	data, _, err := plugin.MarshalPluginMetricTypes(plugin.SnapGOBContentType, []plugin.PluginMetricType{mt})
 	Convey("Metric should encode successfully", t, func() {
 		Convey("So err should be nil", func() {
 			So(err, ShouldBeNil)
@@ -51,7 +51,7 @@ func TestRmqIntegration(t *testing.T) {
 	cp, _ := rmqPub.GetConfigPolicy()
 	config := map[string]ctypes.ConfigValue{
 		"address":       ctypes.ConfigValueStr{Value: "127.0.0.1:5672"},
-		"exchange_name": ctypes.ConfigValueStr{Value: "pulse"},
+		"exchange_name": ctypes.ConfigValueStr{Value: "snap"},
 		"routing_key":   ctypes.ConfigValueStr{Value: "metrics"},
 		"exchange_type": ctypes.ConfigValueStr{Value: "fanout"},
 	}
@@ -59,7 +59,7 @@ func TestRmqIntegration(t *testing.T) {
 
 	cKill := make(chan struct{})
 	cMetrics, errc := connectToAmqp(cKill)
-	err = rmqPub.Publish(plugin.PulseGOBContentType, data, *cfg)
+	err = rmqPub.Publish(plugin.SnapGOBContentType, data, *cfg)
 	Convey("Publish should successfully publish metric to RabbitMQ server", t, func() {
 		Convey("Publish data to RabbitMQ should not error", func() {
 			So(err, ShouldBeNil)
@@ -100,7 +100,7 @@ func connectToAmqp(cKill <-chan struct{}) (chan []byte, error) {
 	}
 
 	err = ch.ExchangeDeclare(
-		"pulse",  //name
+		"snap",  //name
 		"fanout", //kind
 		true,     //durable
 		false,
@@ -129,7 +129,7 @@ func connectToAmqp(cKill <-chan struct{}) (chan []byte, error) {
 	err = ch.QueueBind(
 		q.Name,    // queue name
 		"metrics", // routing key
-		"pulse",
+		"snap",
 		false,
 		nil)
 	if err != nil {
