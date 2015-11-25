@@ -24,9 +24,9 @@ package rmq
 import (
 	"testing"
 
-	"github.com/intelsdi-x/pulse/control/plugin"
-	"github.com/intelsdi-x/pulse/control/plugin/cpolicy"
-	"github.com/intelsdi-x/pulse/core/ctypes"
+	"github.com/intelsdi-x/snap/control/plugin"
+	"github.com/intelsdi-x/snap/control/plugin/cpolicy"
+	"github.com/intelsdi-x/snap/core/ctypes"
 	. "github.com/smartystreets/goconvey/convey"
 )
 
@@ -59,7 +59,7 @@ func TestRabbitmqPlugin(t *testing.T) {
 			})
 			testConfig := make(map[string]ctypes.ConfigValue)
 			testConfig["address"] = ctypes.ConfigValueStr{Value: "localhost:5672"}
-			testConfig["exchange_name"] = ctypes.ConfigValueStr{Value: "pulse"}
+			testConfig["exchange_name"] = ctypes.ConfigValueStr{Value: "snap"}
 			testConfig["exchange_type"] = ctypes.ConfigValueStr{Value: "fanout"}
 			testConfig["routing_key"] = ctypes.ConfigValueStr{Value: "metrics"}
 			cfg, errs := configPolicy.Get([]string{""}).Process(testConfig)

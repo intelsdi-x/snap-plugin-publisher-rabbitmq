@@ -1,5 +1,5 @@
 {
-	"ImportPath": "github.com/intelsdi-x/pulse-plugin-publisher-rabbitmq",
+	"ImportPath": "github.com/intelsdi-x/snap-plugin-publisher-rabbitmq",
 	"GoVersion": "go1.4.2",
 	"Deps": [
 		{
@@ -7,7 +7,7 @@
 			"Rev": "6a378341a305bfbc252e8a6638f16cf443221997"
 		},
 		{
-			"ImportPath": "github.com/intelsdi-x/pulse",
+			"ImportPath": "github.com/intelsdi-x/snap",
 			"Comment": "v0.8.0-beta",
 			"Rev": "de2881352745c206284b74f4ef1165ba4510971a"
 		},

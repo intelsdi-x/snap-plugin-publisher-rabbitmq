@@ -28,14 +28,14 @@ import (
 
 	log "github.com/Sirupsen/logrus"
 
-	"github.com/intelsdi-x/pulse/control/plugin"
-	"github.com/intelsdi-x/pulse/control/plugin/cpolicy"
-	"github.com/intelsdi-x/pulse/core/ctypes"
+	"github.com/intelsdi-x/snap/control/plugin"
+	"github.com/intelsdi-x/snap/control/plugin/cpolicy"
+	"github.com/intelsdi-x/snap/core/ctypes"
 	"github.com/streadway/amqp"
 )
 
 func Meta() *plugin.PluginMeta {
-	return plugin.NewPluginMeta(name, version, pluginType, []string{plugin.PulseGOBContentType}, []string{plugin.PulseGOBContentType})
+	return plugin.NewPluginMeta(name, version, pluginType, []string{plugin.SnapGOBContentType}, []string{plugin.SnapGOBContentType})
 }
 
 type rmqPublisher struct{}
@@ -47,7 +47,7 @@ func NewRmqPublisher() *rmqPublisher {
 
 const (
 	name       = "rabbitmq"
-	version    = 4
+	version    = 5
 	pluginType = plugin.PublisherPluginType
 )
 
@@ -55,7 +55,7 @@ func (rmq *rmqPublisher) Publish(contentType string, content []byte, config map[
 	logger := log.New()
 	var metrics []plugin.PluginMetricType
 	switch contentType {
-	case plugin.PulseGOBContentType:
+	case plugin.SnapGOBContentType:
 		dec := gob.NewDecoder(bytes.NewBuffer(content))
 		if err := dec.Decode(&metrics); err != nil {
 			logger.Printf("Error decoding: error=%v content=%v", err, content)
