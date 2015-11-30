@@ -100,7 +100,7 @@ func connectToAmqp(cKill <-chan struct{}) (chan []byte, error) {
 	}
 
 	err = ch.ExchangeDeclare(
-		"snap",  //name
+		"snap",   //name
 		"fanout", //kind
 		true,     //durable
 		false,
