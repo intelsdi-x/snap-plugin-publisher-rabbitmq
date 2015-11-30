@@ -1,29 +1,40 @@
-<!--
-http://www.apache.org/licenses/LICENSE-2.0.txt
+# Snap Publisher Plugin RabbitMQ
 
+1. [Getting Started](#getting-started)
+  * [System Requirements](#system-requirements)
+2. [Community Support](#community-support)
+3. [Contributing](#contributing)
+4. [License](#license)
+5. [Acknowledgements](#acknowledgements)
 
-Copyright 2015 Intel Corporation
+## Getting Started
 
-Licensed under the Apache License, Version 2.0 (the "License");
-you may not use this file except in compliance with the License.
-You may obtain a copy of the License at
+Plugin is publishing data on AMQP queues via RabbitMQ service
 
-    http://www.apache.org/licenses/LICENSE-2.0
+### System Requirements
 
-Unless required by applicable law or agreed to in writing, software
-distributed under the License is distributed on an "AS IS" BASIS,
-WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
-See the License for the specific language governing permissions and
-limitations under the License.
--->
+Include:
+ - Rabbitmq-server working on setup
 
-## Pulse Publisher Plugin Structure
----
+## Community Support
+This repository is one of **many** plugins in the **Snap Framework**: a powerful telemetry agent framework. To reach out on other use cases, visit:
 
-#### Plugin binary
+* Snap Gitter channel (@TODO Link)
+* Our Google Group (@TODO Link)
 
-./main.go
+The full project is at http://github.com:intelsdi-x/snap.
 
-##### Publisher Implementation
+## Contributing
+We love contributions! :heart_eyes:
 
-./rmq/rmq.go
+There's more than one way to give back, from examples to blogs to code updates. See our recommended process in [CONTRIBUTING.md](CONTRIBUTING.md).
+
+## License
+Snap, along with this plugin, is an Open Source software released under the Apache 2.0 [License](LICENSE).
+
+## Acknowledgements
+List authors, co-authors and anyone you'd like to mention
+
+* Author: [Nicholas Weaver](https://github.com/lynxbat)
+
+**Thank you!** Your contribution is incredibly important to us.
