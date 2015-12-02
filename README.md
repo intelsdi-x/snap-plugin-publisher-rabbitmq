@@ -21,7 +21,7 @@ This plugin publishing metrics to AMQP queues via RabbitMQ
 
 ### Installation
 #### Download RabbitMQ plugin binary:
-You can get the pre-built binaries for your OS and architecture at snap's [Github Releases[(https://github.com/intelsdi-x/snap/releases) page.
+You can get the pre-built binaries for your OS and architecture at snap's [Github Releases](https://github.com/intelsdi-x/snap/releases) page.
 
 #### To build the plugin binary:
 Fork https://github.com/intelsdi-x/snap-plugin-publisher-rabbitmq
