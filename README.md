@@ -25,7 +25,7 @@ You can get the pre-built binaries for your OS and architecture at snap's [Githu
 
 #### To build the plugin binary:
 Fork https://github.com/intelsdi-x/snap-plugin-publisher-rabbitmq
-Clone repo into `$GOPATH/src/github/intelsdi-x/`:
+Clone repo into `$GOPATH/src/github/intelsdi-x/`:  
 ```
 $ git clone https://github.com/<yourGithubID>/snap-plugin-publisher-rabbitmq
 ```
@@ -107,5 +107,6 @@ There's more than one way to give back, from examples to blogs to code updates. 
 List authors, co-authors and anyone you'd like to mention
 
 * Author: [Nicholas Weaver](https://github.com/lynxbat)
+* Author: [Szymon Konefal](https://github.com/skonefal)
 
 And **thank you!** Your contribution, through code and participation, is incredibly important to us.
