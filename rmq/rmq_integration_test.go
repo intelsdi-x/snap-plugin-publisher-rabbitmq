@@ -30,18 +30,19 @@ import (
 	"github.com/streadway/amqp"
 
 	"github.com/intelsdi-x/snap/control/plugin"
+	"github.com/intelsdi-x/snap/core"
 	"github.com/intelsdi-x/snap/core/ctypes"
 )
 
 // integration test
 func TestRmqIntegration(t *testing.T) {
-	mt := plugin.PluginMetricType{
-		Namespace_:          []string{"foo", "bar"},
+	mt := plugin.MetricType{
+		Namespace_:          core.NewNamespace("foo", "bar"),
 		LastAdvertisedTime_: time.Now(),
 		Version_:            1,
 		Data_:               1,
 	}
-	data, _, err := plugin.MarshalPluginMetricTypes(plugin.SnapGOBContentType, []plugin.PluginMetricType{mt})
+	data, _, err := plugin.MarshalMetricTypes(plugin.SnapGOBContentType, []plugin.MetricType{mt})
 	Convey("Metric should encode successfully", t, func() {
 		Convey("So err should be nil", func() {
 			So(err, ShouldBeNil)
@@ -72,7 +73,7 @@ func TestRmqIntegration(t *testing.T) {
 				if err == nil {
 					select {
 					case metric := <-cMetrics:
-						var metrix []plugin.PluginMetricType
+						var metrix []plugin.MetricType
 						err := json.Unmarshal(metric, &metrix)
 						So(err, ShouldBeNil)
 						So(metrix[0].Version(), ShouldEqual, mt.Version_)
