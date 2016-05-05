@@ -53,7 +53,7 @@ const (
 
 func (rmq *rmqPublisher) Publish(contentType string, content []byte, config map[string]ctypes.ConfigValue) error {
 	logger := log.New()
-	var metrics []plugin.PluginMetricType
+	var metrics []plugin.MetricType
 	switch contentType {
 	case plugin.SnapGOBContentType:
 		dec := gob.NewDecoder(bytes.NewBuffer(content))
@@ -104,7 +104,7 @@ func (rmq *rmqPublisher) GetConfigPolicy() (*cpolicy.ConfigPolicy, error) {
 	return cp, nil
 }
 
-func publishDataToRmq(metrics []plugin.PluginMetricType, address string, exName string, rtKey string, exKind string, logger *log.Logger) error {
+func publishDataToRmq(metrics []plugin.MetricType, address string, exName string, rtKey string, exKind string, logger *log.Logger) error {
 	conn, err := amqp.Dial("amqp://" + address)
 	if err != nil {
 		logger.Printf("RMQ Publisher: cannot open connection, %s", err)
