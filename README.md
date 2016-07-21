@@ -43,6 +43,14 @@ This builds the plugin in `/build/rootfs`
 ## Documentation
 [rabbitmq](https://www.rabbitmq.com/documentation.html)
 
+###  Task manifest
+User need to provide following parameters in configuration for publisher:
+- `address` -  IP address with port number for RabbitMQ host,
+- `exchange_name` - name of exchange,
+- `routing_key` - routing key,
+- `exchange_type` -  type of exchange,
+- `durable` - sets durability (default: true).
+
 ### Examples
 Example task manifest to use RabbitMQ plugin:
 ```
@@ -76,7 +84,8 @@ Example task manifest to use RabbitMQ plugin:
                                 "address": "127.0.0.1:5672",
                                 "exchange_name": "snap",
                                 "routing_key": "metrics",
-                                "exchange_type": "fanout"
+                                "exchange_type": "fanout",
+                                "durable" : true
                             }
                         }
                     ]

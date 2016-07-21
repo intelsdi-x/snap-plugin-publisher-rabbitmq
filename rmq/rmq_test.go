@@ -57,17 +57,56 @@ func TestRabbitmqPlugin(t *testing.T) {
 			Convey("so config policy should be a cpolicy.ConfigPolicy", func() {
 				So(configPolicy, ShouldHaveSameTypeAs, &cpolicy.ConfigPolicy{})
 			})
-			testConfig := make(map[string]ctypes.ConfigValue)
-			testConfig["address"] = ctypes.ConfigValueStr{Value: "localhost:5672"}
-			testConfig["exchange_name"] = ctypes.ConfigValueStr{Value: "snap"}
-			testConfig["exchange_type"] = ctypes.ConfigValueStr{Value: "fanout"}
-			testConfig["routing_key"] = ctypes.ConfigValueStr{Value: "metrics"}
-			cfg, errs := configPolicy.Get([]string{""}).Process(testConfig)
-			Convey("so configPolicy should process test config and return a config", func() {
-				So(cfg, ShouldNotBeNil)
+
+			Convey("so processing of configuration without optional parameter should return correct values of parameters", func() {
+				testConfig := make(map[string]ctypes.ConfigValue)
+				testConfig["address"] = ctypes.ConfigValueStr{Value: "localhost:5672"}
+				testConfig["exchange_name"] = ctypes.ConfigValueStr{Value: "snap"}
+				testConfig["exchange_type"] = ctypes.ConfigValueStr{Value: "fanout"}
+				testConfig["routing_key"] = ctypes.ConfigValueStr{Value: "metrics"}
+
+				cfg, errs := configPolicy.Get([]string{""}).Process(testConfig)
+				Convey("so configPolicy should process test config and return a config", func() {
+					So(cfg, ShouldNotBeNil)
+				})
+
+				Convey("so parameters should have correct values", func() {
+					So((*cfg)["address"].(ctypes.ConfigValueStr).Value, ShouldEqual, "localhost:5672")
+					So((*cfg)["exchange_name"].(ctypes.ConfigValueStr).Value, ShouldEqual, "snap")
+					So((*cfg)["exchange_type"].(ctypes.ConfigValueStr).Value, ShouldEqual, "fanout")
+					So((*cfg)["routing_key"].(ctypes.ConfigValueStr).Value, ShouldEqual, "metrics")
+					So((*cfg)["durable"].(ctypes.ConfigValueBool).Value, ShouldEqual, true)
+				})
+
+				Convey("so testConfig processing should return no errors", func() {
+					So(errs.HasErrors(), ShouldBeFalse)
+				})
 			})
-			Convey("so testConfig processing should return no errors", func() {
-				So(errs.HasErrors(), ShouldBeFalse)
+
+			Convey("so processing of configuration with optional parameter should return correct values of parameters", func() {
+				testConfig := make(map[string]ctypes.ConfigValue)
+				testConfig["address"] = ctypes.ConfigValueStr{Value: "localhost:5672"}
+				testConfig["exchange_name"] = ctypes.ConfigValueStr{Value: "snap"}
+				testConfig["exchange_type"] = ctypes.ConfigValueStr{Value: "fanout"}
+				testConfig["routing_key"] = ctypes.ConfigValueStr{Value: "metrics"}
+				testConfig["durable"] = ctypes.ConfigValueBool{Value: false}
+
+				cfg, errs := configPolicy.Get([]string{""}).Process(testConfig)
+				Convey("so configPolicy should process test config and return a config", func() {
+					So(cfg, ShouldNotBeNil)
+				})
+
+				Convey("so parameters should have correct values", func() {
+					So((*cfg)["address"].(ctypes.ConfigValueStr).Value, ShouldEqual, "localhost:5672")
+					So((*cfg)["exchange_name"].(ctypes.ConfigValueStr).Value, ShouldEqual, "snap")
+					So((*cfg)["exchange_type"].(ctypes.ConfigValueStr).Value, ShouldEqual, "fanout")
+					So((*cfg)["routing_key"].(ctypes.ConfigValueStr).Value, ShouldEqual, "metrics")
+					So((*cfg)["durable"].(ctypes.ConfigValueBool).Value, ShouldEqual, false)
+				})
+
+				Convey("so testConfig processing should return no errors", func() {
+					So(errs.HasErrors(), ShouldBeFalse)
+				})
 			})
 		})
 	})

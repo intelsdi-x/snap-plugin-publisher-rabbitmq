@@ -1,15 +1,16 @@
 {
 	"ImportPath": "github.com/intelsdi-x/snap-plugin-publisher-rabbitmq",
 	"GoVersion": "go1.6",
-	"GodepVersion": "v62",
-	"Packages": [
-		"./..."
-	],
+	"GodepVersion": "v63",
 	"Deps": [
 		{
 			"ImportPath": "github.com/Sirupsen/logrus",
-			"Comment": "v0.7.3",
-			"Rev": "55eb11d21d2a31a3cc93838241d04800f52e823d"
+			"Comment": "v0.10.0-28-ga283a10",
+			"Rev": "a283a10442df8dc09befd873fab202bf8a253d6a"
+		},
+		{
+			"ImportPath": "github.com/golang/protobuf/proto",
+			"Rev": "8616e8ee5e20a1704615e6c8d7afcdac06087a67"
 		},
 		{
 			"ImportPath": "github.com/gopherjs/gopherjs/js",
@@ -17,61 +18,72 @@
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/control/plugin",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/control/plugin/cpolicy",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/control/plugin/encoding",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/control/plugin/encrypter",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
+		},
+		{
+			"ImportPath": "github.com/intelsdi-x/snap/control/plugin/rpc",
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/core",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/core/cdata",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/core/ctypes",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/core/serror",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
+		},
+		{
+			"ImportPath": "github.com/intelsdi-x/snap/grpc/common",
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/pkg/ctree",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/pkg/schedule",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/intelsdi-x/snap/scheduler/wmap",
-			"Comment": "v0.13.0-beta-73-g170c8d3",
-			"Rev": "170c8d390d6a03a785c5af7e14ceb949886cfb23"
+			"Comment": "v0.13.0-beta-261-g5137f6c",
+			"Rev": "5137f6cb389b3502b8d79d05aac2d5a6ecec1b41"
 		},
 		{
 			"ImportPath": "github.com/jtolds/gls",
+			"Comment": "v4.2.0",
 			"Rev": "8ddce2a84170772b95dd5d576c48d517b22cac63"
 		},
 		{
@@ -114,8 +126,72 @@
 			"Rev": "6a378341a305bfbc252e8a6638f16cf443221997"
 		},
 		{
+			"ImportPath": "golang.org/x/net/context",
+			"Rev": "154d9f9ea81208afed560f4cf27b4860c8ed1904"
+		},
+		{
+			"ImportPath": "golang.org/x/net/http2",
+			"Rev": "154d9f9ea81208afed560f4cf27b4860c8ed1904"
+		},
+		{
+			"ImportPath": "golang.org/x/net/http2/hpack",
+			"Rev": "154d9f9ea81208afed560f4cf27b4860c8ed1904"
+		},
+		{
+			"ImportPath": "golang.org/x/net/internal/timeseries",
+			"Rev": "154d9f9ea81208afed560f4cf27b4860c8ed1904"
+		},
+		{
+			"ImportPath": "golang.org/x/net/lex/httplex",
+			"Rev": "154d9f9ea81208afed560f4cf27b4860c8ed1904"
+		},
+		{
+			"ImportPath": "golang.org/x/net/trace",
+			"Rev": "154d9f9ea81208afed560f4cf27b4860c8ed1904"
+		},
+		{
+			"ImportPath": "golang.org/x/sys/unix",
+			"Rev": "7f918dd405547ecb864d14a8ecbbfe205b5f930f"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc",
+			"Rev": "88aeffff979aa77aa502cb011423d0a08fa12c5a"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc/codes",
+			"Rev": "88aeffff979aa77aa502cb011423d0a08fa12c5a"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc/credentials",
+			"Rev": "88aeffff979aa77aa502cb011423d0a08fa12c5a"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc/grpclog",
+			"Rev": "88aeffff979aa77aa502cb011423d0a08fa12c5a"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc/internal",
+			"Rev": "88aeffff979aa77aa502cb011423d0a08fa12c5a"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc/metadata",
+			"Rev": "88aeffff979aa77aa502cb011423d0a08fa12c5a"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc/naming",
+			"Rev": "88aeffff979aa77aa502cb011423d0a08fa12c5a"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc/peer",
+			"Rev": "88aeffff979aa77aa502cb011423d0a08fa12c5a"
+		},
+		{
+			"ImportPath": "google.golang.org/grpc/transport",
+			"Rev": "88aeffff979aa77aa502cb011423d0a08fa12c5a"
+		},
+		{
 			"ImportPath": "gopkg.in/yaml.v2",
-			"Rev": "f7716cbe52baa25d2e9b0d0da546fcf909fc16b4"
+			"Rev": "c1cd2254a6dd314c9d73c338c12688c9325d85c6"
 		}
 	]
 }
