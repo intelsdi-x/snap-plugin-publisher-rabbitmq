@@ -47,7 +47,7 @@ func NewRmqPublisher() *rmqPublisher {
 
 const (
 	name       = "rabbitmq"
-	version    = 7
+	version    = 8
 	pluginType = plugin.PublisherPluginType
 )
 
@@ -71,6 +71,7 @@ func (rmq *rmqPublisher) Publish(contentType string, content []byte, config map[
 		config["exchange_name"].(ctypes.ConfigValueStr).Value,
 		config["routing_key"].(ctypes.ConfigValueStr).Value,
 		config["exchange_type"].(ctypes.ConfigValueStr).Value,
+		config["durable"].(ctypes.ConfigValueBool).Value,
 		logger,
 	)
 	return err
@@ -100,11 +101,16 @@ func (rmq *rmqPublisher) GetConfigPolicy() (*cpolicy.ConfigPolicy, error) {
 	r4.Description = "RabbitMQ Routing Key"
 	config.Add(r4)
 
+	r5, err := cpolicy.NewBoolRule("durable", false, true)
+	handleErr(err)
+	r5.Description = "RabbitMQ Durable"
+	config.Add(r5)
+
 	cp.Add([]string{""}, config)
 	return cp, nil
 }
 
-func publishDataToRmq(metrics []plugin.MetricType, address string, exName string, rtKey string, exKind string, logger *log.Logger) error {
+func publishDataToRmq(metrics []plugin.MetricType, address string, exName string, rtKey string, exKind string, durable bool, logger *log.Logger) error {
 	conn, err := amqp.Dial("amqp://" + address)
 	if err != nil {
 		logger.Printf("RMQ Publisher: cannot open connection, %s", err)
@@ -118,7 +124,7 @@ func publishDataToRmq(metrics []plugin.MetricType, address string, exName string
 		return err
 	}
 
-	err = c.ExchangeDeclare(exName, exKind, true, false, false, false, nil)
+	err = c.ExchangeDeclare(exName, exKind, durable, false, false, false, nil)
 	if err != nil {
 		logger.Printf("RMQ Publisher: cannot declare exchange: %v", err)
 		return err
