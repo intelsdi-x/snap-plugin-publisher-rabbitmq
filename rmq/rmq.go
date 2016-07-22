@@ -47,7 +47,7 @@ func NewRmqPublisher() *rmqPublisher {
 
 const (
 	name       = "rabbitmq"
-	version    = 8
+	version    = 9
 	pluginType = plugin.PublisherPluginType
 )
 
@@ -67,7 +67,7 @@ func (rmq *rmqPublisher) Publish(contentType string, content []byte, config map[
 	}
 	err := publishDataToRmq(
 		metrics,
-		config["address"].(ctypes.ConfigValueStr).Value,
+		config["uri"].(ctypes.ConfigValueStr).Value,
 		config["exchange_name"].(ctypes.ConfigValueStr).Value,
 		config["routing_key"].(ctypes.ConfigValueStr).Value,
 		config["exchange_type"].(ctypes.ConfigValueStr).Value,
@@ -81,9 +81,9 @@ func (rmq *rmqPublisher) GetConfigPolicy() (*cpolicy.ConfigPolicy, error) {
 	cp := cpolicy.New()
 	config := cpolicy.NewPolicyNode()
 
-	r1, err := cpolicy.NewStringRule("address", true)
+	r1, err := cpolicy.NewStringRule("uri", true)
 	handleErr(err)
-	r1.Description = "RabbitMQ Address (host:port)"
+	r1.Description = "RabbitMQ URI (user:password@ip:port/vhost)"
 	config.Add(r1)
 
 	r2, err := cpolicy.NewStringRule("exchange_name", true)
@@ -110,8 +110,8 @@ func (rmq *rmqPublisher) GetConfigPolicy() (*cpolicy.ConfigPolicy, error) {
 	return cp, nil
 }
 
-func publishDataToRmq(metrics []plugin.MetricType, address string, exName string, rtKey string, exKind string, durable bool, logger *log.Logger) error {
-	conn, err := amqp.Dial("amqp://" + address)
+func publishDataToRmq(metrics []plugin.MetricType, uri string, exName string, rtKey string, exKind string, durable bool, logger *log.Logger) error {
+	conn, err := amqp.Dial("amqp://" + uri)
 	if err != nil {
 		logger.Printf("RMQ Publisher: cannot open connection, %s", err)
 		return err
