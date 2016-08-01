@@ -45,7 +45,8 @@ This builds the plugin in `/build/rootfs`
 
 ###  Task manifest
 User need to provide following parameters in configuration for publisher:
-- `address` -  IP address with port number for RabbitMQ host,
+- `uri` -  AMQP URI scheme for connecting to server. URI supports the following form: "user:password@ip:port/vhost".
+           User, password, and vhost are optional. When not specified, the default values for RabbitMQ will be used.
 - `exchange_name` - name of exchange,
 - `routing_key` - routing key,
 - `exchange_type` -  type of exchange,
@@ -73,22 +74,16 @@ Example task manifest to use RabbitMQ plugin:
                     "password": "secret"
                 }
             },
-            "process": [
+            "publish": [
                 {
-                    "plugin_name": "passthru",
-                    "process": null,
-                    "publish": [
-                        {
-                            "plugin_name": "rabbitmq",
-                            "config": {
-                                "address": "127.0.0.1:5672",
-                                "exchange_name": "snap",
-                                "routing_key": "metrics",
-                                "exchange_type": "fanout",
-                                "durable" : true
-                            }
-                        }
-                    ]
+                    "plugin_name": "rabbitmq",
+                    "config": {
+                        "uri": "127.0.0.1:5672",
+                        "exchange_name": "snap",
+                        "routing_key": "metrics",
+                        "exchange_type": "fanout",
+                        "durable" : true
+                    }
                 }
             ]
         }

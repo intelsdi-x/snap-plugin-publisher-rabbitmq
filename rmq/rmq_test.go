@@ -60,7 +60,7 @@ func TestRabbitmqPlugin(t *testing.T) {
 
 			Convey("so processing of configuration without optional parameter should return correct values of parameters", func() {
 				testConfig := make(map[string]ctypes.ConfigValue)
-				testConfig["address"] = ctypes.ConfigValueStr{Value: "localhost:5672"}
+				testConfig["uri"] = ctypes.ConfigValueStr{Value: "localhost:5672"}
 				testConfig["exchange_name"] = ctypes.ConfigValueStr{Value: "snap"}
 				testConfig["exchange_type"] = ctypes.ConfigValueStr{Value: "fanout"}
 				testConfig["routing_key"] = ctypes.ConfigValueStr{Value: "metrics"}
@@ -71,7 +71,7 @@ func TestRabbitmqPlugin(t *testing.T) {
 				})
 
 				Convey("so parameters should have correct values", func() {
-					So((*cfg)["address"].(ctypes.ConfigValueStr).Value, ShouldEqual, "localhost:5672")
+					So((*cfg)["uri"].(ctypes.ConfigValueStr).Value, ShouldEqual, "localhost:5672")
 					So((*cfg)["exchange_name"].(ctypes.ConfigValueStr).Value, ShouldEqual, "snap")
 					So((*cfg)["exchange_type"].(ctypes.ConfigValueStr).Value, ShouldEqual, "fanout")
 					So((*cfg)["routing_key"].(ctypes.ConfigValueStr).Value, ShouldEqual, "metrics")
@@ -85,7 +85,7 @@ func TestRabbitmqPlugin(t *testing.T) {
 
 			Convey("so processing of configuration with optional parameter should return correct values of parameters", func() {
 				testConfig := make(map[string]ctypes.ConfigValue)
-				testConfig["address"] = ctypes.ConfigValueStr{Value: "localhost:5672"}
+				testConfig["uri"] = ctypes.ConfigValueStr{Value: "localhost:5672"}
 				testConfig["exchange_name"] = ctypes.ConfigValueStr{Value: "snap"}
 				testConfig["exchange_type"] = ctypes.ConfigValueStr{Value: "fanout"}
 				testConfig["routing_key"] = ctypes.ConfigValueStr{Value: "metrics"}
@@ -97,7 +97,7 @@ func TestRabbitmqPlugin(t *testing.T) {
 				})
 
 				Convey("so parameters should have correct values", func() {
-					So((*cfg)["address"].(ctypes.ConfigValueStr).Value, ShouldEqual, "localhost:5672")
+					So((*cfg)["uri"].(ctypes.ConfigValueStr).Value, ShouldEqual, "localhost:5672")
 					So((*cfg)["exchange_name"].(ctypes.ConfigValueStr).Value, ShouldEqual, "snap")
 					So((*cfg)["exchange_type"].(ctypes.ConfigValueStr).Value, ShouldEqual, "fanout")
 					So((*cfg)["routing_key"].(ctypes.ConfigValueStr).Value, ShouldEqual, "metrics")

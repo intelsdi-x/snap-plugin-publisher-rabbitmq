@@ -51,7 +51,7 @@ func TestRmqIntegration(t *testing.T) {
 	rmqPub := NewRmqPublisher()
 	cp, _ := rmqPub.GetConfigPolicy()
 	config := map[string]ctypes.ConfigValue{
-		"address":       ctypes.ConfigValueStr{Value: "127.0.0.1:5672"},
+		"uri":           ctypes.ConfigValueStr{Value: "127.0.0.1:5672"},
 		"exchange_name": ctypes.ConfigValueStr{Value: "snap"},
 		"routing_key":   ctypes.ConfigValueStr{Value: "metrics"},
 		"exchange_type": ctypes.ConfigValueStr{Value: "fanout"},
