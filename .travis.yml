@@ -65,6 +65,7 @@ deploy:
     secure: iywk4kfiTy5bjP2uSTkdv4V+Q1LFxB7HIQ/leJGUOrNXljQJQakzwaPTqBaTwOZHAVqXo+JT91YV42OnL2dp4+XmJEAQQ7FzD3ystMwBhgp00K27dTWwQTIlSnwM6l+5qxPOa4d2MdWPon2FJj7KsU3t/doFrd1pck2Zd51lEE7WX2cfEoIOOnCQoc5515D4gDh90ht2OlBoVp3Ica81EGgiPwyQWjbWuzSTV2WBtGVau5o/G++tby+7M7adsQrFZFgoXAZbPbXD9TNTBPqMDs1bnNcPjKE5V7YQH0+XsNKOrg0++NPfhFtIoxOFn0ysjSEZp5JGW87Y/+ldfCpYNoqhOm9FUr9+Er6Xa5WTAKR/2Na2pD4raQCrQxmva4QRKXZrSbaO//Suj0pcVcZu0LR4RcDyjL3Ws3Wf+xtMsOUC4aKEHEDKzdoCMIebgd0Pq7H4J+TpDsW7gpJH2qS5uD9oFh9BmDiseMwmbZzh9fxSSawgguXlEGbuRuyLmlD5wgQBMSYM52n/etLO+PPmb0nv8TJcpcWzhAZoZVz9fAQt4Beu4zTdr8qETJd1v9TKeBibUaVnRttZbfxfLlyhgePo6nuwrll/Qwled/38d5NRHmaILM9s2cFxgfTB1qjWZsw+2gBSN1+dAggLb63gE/4q+rDv+24JWAzRTsHe0IA=
   file:
     - release/snap-plugin-publisher-rabbitmq_linux_x86_64
+    - release/snap-plugin-publisher-rabbitmq_darwin_x86_64
   skip_cleanup: true
   on:
     repo: intelsdi-x/snap-plugin-publisher-rabbitmq
