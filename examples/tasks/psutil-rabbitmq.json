@@ -1,0 +1,31 @@
+{
+  "version": 1,
+  "schedule": {
+    "type": "simple",
+    "interval": "1s"
+  },
+  "workflow": {
+    "collect": {
+      "metrics": {
+        "/intel/psutil/load/load1": {},
+        "/intel/psutil/load/load15": {},
+        "/intel/psutil/load/load5": {},
+        "/intel/psutil/vm/available": {},
+        "/intel/psutil/vm/free": {},
+        "/intel/psutil/vm/used": {}
+      },
+      "publish": [
+        {
+          "plugin_name": "rabbitmq",
+          "config": {
+            "uri": "127.0.0.1:5672",
+            "exchange_name": "snap",
+            "routing_key": "metrics",
+            "exchange_type": "fanout",
+            "durable": true
+          }
+        }
+      ]
+    }
+  }
+}
